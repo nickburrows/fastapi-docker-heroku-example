@@ -6,7 +6,6 @@ HEROKU_FRONTEND_APP_NAME=radiant-woodland-frontend
 HEROKU_API_KEY=0fc29fe1-c9f1-4411-935c-dbb06a941f8d
 COMMIT_ID=$(shell git rev-parse HEAD)
 
-
 heroku-login:
 	HEROKU_API_KEY=${HEROKU_API_KEY} heroku auth:token
 
@@ -27,3 +26,12 @@ deploy-frontend-heroku: heroku-login
 
 
 .PHONY: heroku-login heroku-container-login build-app-heroku push-app-heroku deploy-frontend-heroku
+
+ready:
+	@grep -q '##' .circleci/config.yml && cp .circleci/config.yml config.yml.template && perl -i -pe 's/##//g' .circleci/config.yml
+
+reset:
+	@[ -f config.yml.template ] && cat config.yml.template > .circleci/config.yml && rm config.yml.template
+
+setup:
+	scripts/setup.sh

@@ -54,7 +54,7 @@ jobs:
 
   test_image:
     docker:
-      - image: $DOCKER_USERNAME/fastapi-docker-heroku-example:test
+      - image: $DOCKER_USERNAME/$IMAGE_NAME:test
         environment:
           <<: *image_config
 

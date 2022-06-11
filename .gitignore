@@ -1,3 +1,5 @@
+config.yml.template
+scripts/*
 /downloaded/*
 !/downloaded/.gitkeep
 /.yarn/*

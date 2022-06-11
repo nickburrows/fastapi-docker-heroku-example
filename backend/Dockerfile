@@ -44,4 +44,11 @@ USER app
 
 # Run the run script, it will check for an /app/prestart.sh script (e.g. for migrations)
 # And then will start Uvicorn
-CMD ["./run.sh"]
+# CMD ["./run.sh"]
+# ENV PRE_START_PATH=/app/prestart.sh
+# RUN if [ -f $PRE_START_PATH  ] ; then echo 'Running script $PRE_START_PATH' && . '$PRE_START_PATH' ; else echo 'There is no script $PRE_START_PATH' ; fi
+# ENV APP_MODULE=app.main:app
+# ENV HOST=0.0.0.0
+# ENV PORT=8001
+RUN bash -c "./run.sh"
+CMD uvicorn app.main:app --reload --host=0.0.0.0 --port=${PORT:-8001} --max-requests 100
